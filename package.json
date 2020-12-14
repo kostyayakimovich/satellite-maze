@@ -1,0 +1,24 @@
+{
+  "name": "satellite-maze",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kostyayakimovich/satellite-maze.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kostyayakimovich/satellite-maze/issues"
+  },
+  "homepage": "https://github.com/kostyayakimovich/satellite-maze#readme"
+}

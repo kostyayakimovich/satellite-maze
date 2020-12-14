@@ -1,3 +1,8 @@
+type Coord = {
+  x: number;
+  y: number;
+}
+
 const coord = {
   x: 0,
   y: 3,
@@ -12,7 +17,7 @@ const maze = [
   [false, false, false, false, false, false, false, false, false],
 ];
 
-const walk = (mazeArr = [], objStart) => {
+const walk = (mazeArr : boolean[][], objStart: Coord): Coord[] | string => {
   if (!mazeArr.length) return 'this is not a maze';
   const xStart = objStart.x;
   const yStart = objStart.y;
@@ -31,78 +36,73 @@ const walk = (mazeArr = [], objStart) => {
 
   //check Angle
   if (xStart === 0 && yStart === 0) {
-    if (mazeArr[yStart][xStart + 1])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart, x: xStart + 1 },
-      ];
-    if (mazeArr[yStart + 1][xStart])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart + 1, x: xStart },
-      ];
+    if (mazeArr[yStart][xStart + 1]){
+      way.push({ y: yStart, x: xStart + 1 });
+      return way;
+    }
+    if (mazeArr[yStart + 1][xStart]){
+      way.push({ y: yStart + 1, x: xStart })
+        return way;      
+    }
+    
   }
   if (xStart === 0 && yStart === mazeArr.length - 1) {
-    if (mazeArr[yStart][xStart + 1])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart, x: xStart + 1 },
-      ];
-    if (mazeArr[yStart - 1][xStart])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart - 1, x: xStart },
-      ];
+    if (mazeArr[yStart][xStart + 1]){
+      way.push({ y: yStart, x: xStart + 1 });
+       return way;
+    }
+     
+    if (mazeArr[yStart - 1][xStart]){
+      way.push({ y: yStart - 1, x: xStart });
+      return way;
+    }
   }
   if (xStart === mazeArr[0].length - 1 && yStart === mazeArr.length - 1) {
-    if (mazeArr[yStart][xStart - 1])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart, x: xStart - 1 },
-      ];
-    if (mazeArr[yStart - 1][xStart])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart - 1, x: xStart },
-      ];
+    if (mazeArr[yStart][xStart - 1]){
+      way.push({ y: yStart, x: xStart - 1 });
+      return way;
+    }
+     
+    if (mazeArr[yStart - 1][xStart]){
+      way.push({ y: yStart - 1, x: xStart });
+      return way;
+    }
+    
   }
   if (xStart === mazeArr[0].length - 1 && yStart === 0) {
-    if (mazeArr[yStart][xStart - 1])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart, x: xStart - 1 },
-      ];
-    if (mazeArr[yStart + 1][xStart])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart + 1, x: xStart },
-      ];
+    if (mazeArr[yStart][xStart - 1]){
+way.push( { y: yStart, x: xStart - 1 });
+return way;
+    }
+    if (mazeArr[yStart + 1][xStart]){
+      way.push({ y: yStart + 1, x: xStart });
+      return way;
+    }
   }
 
   //check neighbors(quick exit)
   if (xStart === 0 || xStart === mazeArr[0].length - 1) {
-    if (mazeArr[yStart - 1][xStart])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart - 1, x: xStart },
-      ];
-    if (mazeArr[yStart + 1][xStart])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart + 1, x: xStart },
-      ];
+    if (mazeArr[yStart - 1][xStart]){
+      way.push({ y: yStart - 1, x: xStart });
+      return way;
+    }
+    if (mazeArr[yStart + 1][xStart]){
+      way.push({ y: yStart + 1, x: xStart });
+      return way;
+    }
+    
   }
   if (yStart === 0 || yStart === mazeArr.length - 1) {
-    if (mazeArr[yStart][xStart - 1])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart, x: xStart - 1 },
-      ];
-    if (mazeArr[yStart][xStart + 1])
-      return [
-        { y: yStart, x: xStart },
-        { y: yStart, x: xStart + 1 },
-      ];
+    if (mazeArr[yStart][xStart - 1]){
+      way.push({ y: yStart, x: xStart - 1 });
+      return way;
+    }
+     
+    if (mazeArr[yStart][xStart + 1]){
+      way.push({ y: yStart, x: xStart + 1 });
+      return way;
+    }
+     
   }
 
   let direction = '';
@@ -114,7 +114,7 @@ const walk = (mazeArr = [], objStart) => {
   const wrongWays = [{ y: yStart, x: xStart }];
   const arrCrossroads = [];
 
-  const findWay = (arr, x, y) => {
+  const findWay = (arr: boolean[][], x: number, y: number): Coord[] | string => {
     let leftCoord = true;
     let rightCoord = true;
     let upCoord = true;
@@ -185,7 +185,7 @@ const walk = (mazeArr = [], objStart) => {
         let checkX = arrCrossroads[arrCrossroads.length - 1].x;
         let checkY = arrCrossroads[arrCrossroads.length - 1].y;
         let newWay = [];
-        indexWay = 0;
+       let indexWay = 0;
         while (way[indexWay].y !== checkY || way[indexWay].x !== checkX) {
           newWay.push(way[indexWay]);
           indexWay += 1;
