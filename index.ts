@@ -7,7 +7,7 @@
 type Coord = {
   x: number;
   y: number;
-}
+};
 
 const coord = {
   x: 0,
@@ -23,11 +23,11 @@ const maze = [
   [false, false, false, false, false, false, false, false, false],
 ];
 
-const walk = (mazeArr : boolean[][], objStart: Coord): Coord[] | string => {
+const walk = (mazeArr: boolean[][], objStart: Coord): Coord[] | string => {
   if (!mazeArr.length) return 'this is not a maze';
   const xStart = objStart.x;
   const yStart = objStart.y;
-//Проверяем находится ли точка входа на краю
+  //Проверяем находится ли точка входа на краю
   if (
     xStart !== 0 &&
     yStart !== 0 &&
@@ -39,77 +39,73 @@ const walk = (mazeArr : boolean[][], objStart: Coord): Coord[] | string => {
 
   if (!mazeArr[yStart][xStart]) return "it's a wall";
   let way = [{ y: yStart, x: xStart }];
-//Проверяем все углы. Если точка входа находится на угле лабиринта,
-//то нужно проверить только соседние координаты и не нужно запускать функцию findWay
+  //Проверяем все углы. Если точка входа находится на угле лабиринта,
+  //то нужно проверить только соседние координаты и не нужно запускать функцию findWay
   //check Angle
   if (xStart === 0 && yStart === 0) {
-    if (mazeArr[yStart][xStart + 1]){
+    if (mazeArr[yStart][xStart + 1]) {
       way.push({ y: yStart, x: xStart + 1 });
       return way;
     }
-    if (mazeArr[yStart + 1][xStart]){
-      way.push({ y: yStart + 1, x: xStart })
-        return way;      
+    if (mazeArr[yStart + 1][xStart]) {
+      way.push({ y: yStart + 1, x: xStart });
+      return way;
     }
-    
   }
   if (xStart === 0 && yStart === mazeArr.length - 1) {
-    if (mazeArr[yStart][xStart + 1]){
+    if (mazeArr[yStart][xStart + 1]) {
       way.push({ y: yStart, x: xStart + 1 });
-       return way;
+      return way;
     }
-     
-    if (mazeArr[yStart - 1][xStart]){
+
+    if (mazeArr[yStart - 1][xStart]) {
       way.push({ y: yStart - 1, x: xStart });
       return way;
     }
   }
   if (xStart === mazeArr[0].length - 1 && yStart === mazeArr.length - 1) {
-    if (mazeArr[yStart][xStart - 1]){
+    if (mazeArr[yStart][xStart - 1]) {
       way.push({ y: yStart, x: xStart - 1 });
       return way;
     }
-     
-    if (mazeArr[yStart - 1][xStart]){
+
+    if (mazeArr[yStart - 1][xStart]) {
       way.push({ y: yStart - 1, x: xStart });
       return way;
     }
-    
   }
   if (xStart === mazeArr[0].length - 1 && yStart === 0) {
-    if (mazeArr[yStart][xStart - 1]){
-way.push( { y: yStart, x: xStart - 1 });
-return way;
-    }
-    if (mazeArr[yStart + 1][xStart]){
-      way.push({ y: yStart + 1, x: xStart });
-      return way;
-    }
-  }
-//При входе в лабиринт проверяем две соседние координаты(может выход рядом и не нужно запускать функцию findWay)
-  //check neighbors(quick exit)
-  if (xStart === 0 || xStart === mazeArr[0].length - 1) {
-    if (mazeArr[yStart - 1][xStart]){
-      way.push({ y: yStart - 1, x: xStart });
-      return way;
-    }
-    if (mazeArr[yStart + 1][xStart]){
-      way.push({ y: yStart + 1, x: xStart });
-      return way;
-    }
-    
-  }
-  if (yStart === 0 || yStart === mazeArr.length - 1) {
-    if (mazeArr[yStart][xStart - 1]){
+    if (mazeArr[yStart][xStart - 1]) {
       way.push({ y: yStart, x: xStart - 1 });
       return way;
     }
-     
-    if (mazeArr[yStart][xStart + 1]){
+    if (mazeArr[yStart + 1][xStart]) {
+      way.push({ y: yStart + 1, x: xStart });
+      return way;
+    }
+  }
+  //При входе в лабиринт проверяем две соседние координаты(может выход рядом и не нужно запускать функцию findWay)
+  //check neighbors(quick exit)
+  if (xStart === 0 || xStart === mazeArr[0].length - 1) {
+    if (mazeArr[yStart - 1][xStart]) {
+      way.push({ y: yStart - 1, x: xStart });
+      return way;
+    }
+    if (mazeArr[yStart + 1][xStart]) {
+      way.push({ y: yStart + 1, x: xStart });
+      return way;
+    }
+  }
+  if (yStart === 0 || yStart === mazeArr.length - 1) {
+    if (mazeArr[yStart][xStart - 1]) {
+      way.push({ y: yStart, x: xStart - 1 });
+      return way;
+    }
+
+    if (mazeArr[yStart][xStart + 1]) {
       way.push({ y: yStart, x: xStart + 1 });
       return way;
     }
-     
   }
 
   //Создаем направление движения, чтобы не проверять путь откуда мы пришли
@@ -121,8 +117,12 @@ return way;
 
   const wrongWays = [{ y: yStart, x: xStart }];
   const arrCrossroads = [];
-//функция которая проверяет путь
-  const findWay = (arr: boolean[][], x: number, y: number): Coord[] | string => {
+  //функция которая проверяет путь
+  const findWay = (
+    arr: boolean[][],
+    x: number,
+    y: number
+  ): Coord[] | string => {
     let leftCoord = true;
     let rightCoord = true;
     let upCoord = true;
@@ -144,7 +144,7 @@ return way;
         downCoord = false;
       }
     });
-//Здесь мы проводим проверку направления - ВОСТОК
+    //Здесь мы проводим проверку направления - ВОСТОК
     if (direction !== 'west' && rightCoord && arr[y][x + 1]) {
       wrongWays.push({ y: y, x: x + 1 });
       //check crossroads
@@ -157,14 +157,14 @@ return way;
       //Массив way - это основной массив маршрута.
       //Если мы вышли из лабиринта, то мы его возвращаем
       way.push({ y: y, x: x + 1 });
-      //check exit      
+      //check exit
       //Здесь мы проверяем вышли ли мы из лабиринта.
       //Если мы не вышли, то рекурсивно запускаем функцию findWay
       //Если мы вышли из лабиринта, то возвращаем путь way
       if (x + 1 === 0 || x + 1 === arr[y].length - 1) return way;
       return findWay(arr, x + 1, y);
-    } 
-     //Здесь мы проверяем направление - ЗАПАД(аналогично направлению ВОСТОК)
+    }
+    //Здесь мы проверяем направление - ЗАПАД(аналогично направлению ВОСТОК)
     else if (direction !== 'east' && leftCoord && arr[y][x - 1]) {
       wrongWays.push({ y: y, x: x - 1 });
       //check crossroads
@@ -211,26 +211,26 @@ return way;
         let checkX = arrCrossroads[arrCrossroads.length - 1].x;
         let checkY = arrCrossroads[arrCrossroads.length - 1].y;
         let newWay = [];
-       let indexWay = 0;
-       //Формируем новый путь к выходу(обрезая ложное направление)
+        let indexWay = 0;
+        //Формируем новый путь к выходу(обрезая ложное направление)
         while (way[indexWay].y !== checkY || way[indexWay].x !== checkX) {
           newWay.push(way[indexWay]);
           indexWay += 1;
         }
         newWay.push({ y: checkY, x: checkX });
         way = [...newWay];
-//меняем направление движения, чтобы не проверять путь откуда мы пришли
+        //меняем направление движения, чтобы не проверять путь откуда мы пришли
         if (direction === '') direction = 'east';
         else if (direction === 'east') direction = 'west';
         else if (direction === 'west') direction = 'east';
         else if (direction === 'north') direction = 'south';
         else if (direction === 'south') direction = 'north';
-//удаляем последнюю развилку
+        //удаляем последнюю развилку
         arrCrossroads.pop();
-//запускаем рекурсивно функцию findWay с координатами развилки
+        //запускаем рекурсивно функцию findWay с координатами развилки
         return findWay(arr, checkX, checkY);
       } else {
- //если выхода из лабиринта нет, то возвращаем "wall"       
+        //если выхода из лабиринта нет, то возвращаем "wall"
         return 'wall';
       }
     }
